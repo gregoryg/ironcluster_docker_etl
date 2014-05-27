@@ -29,8 +29,8 @@ ADD ss_bashrc		/home/syncsort/.bashrc
 ADD ss_initial_startup.sh	/home/syncsort/ss_initial_startup.sh
 
 # Move DMX UCAs to Docker
-ADD UseCaseAccelerators.tar /usr/dmexpress/Examples/UseCaseAccelerators
-RUN chmod -R  777 /usr/dmexpress/Examples/
+ADD UseCaseAccelerators.tar /usr/dmexpress/examples/UseCaseAccelerators
+RUN chmod -R  777 /usr/dmexpress/examples/
 
 # Expose dmxd port
 EXPOSE 32636

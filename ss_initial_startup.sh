@@ -5,31 +5,28 @@ not_first_run_flag=~/.dmexpress_first_run
 ## Functions to print information
 print_general_info()
 {
-	echo ""
-	echo ""
+	clear
 	echo "Welcome to the Ironcluster Docker container"
+	echo ""
 	echo "For more information about this image, please go to:"
 	echo ""
-	echo "	www.syncsort.com/Docker	or www.docker.io/Syncsort"
-	echo ""
+	echo "www.syncsort.com/Docker	or https://index.docker.io/u/syncsort/ironcluster_etl/"
 	echo ""
 }
 
 print_first_time_info()
 {
 	echo ""
-	echo ""
-	echo "If you have not yet registered"
-	echo "Please go to www.syncsort.com/Docker/register"
+	echo "If you have not yet registered, please go to www.syncsort.com/Docker/register"
 	echo ""
 }
 
 print_onselect_no()
 {
 	echo ""
-	echo ""
         echo "Please see /usr/dmexpress/installationguide.pdf for information"
 	echo "on how to a license key to Ironcluster ETL."
+	echo ""
 }       
 
 
