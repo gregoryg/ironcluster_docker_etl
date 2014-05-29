@@ -9,7 +9,7 @@ ADD dmexpress.tar.gz	 /usr/
 # Copy local pam.d/sshd (Needed for ssh login)
 ADD ss_sshd /etc/pam.d/sshd
 
-# Unpacking ssh keys
+# Unpacking required ssh configuration
 ADD ssh_info.tar /etc/ssh/
 
 # Set environment
