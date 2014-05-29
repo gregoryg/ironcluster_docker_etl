@@ -10,21 +10,21 @@ print_general_info()
 	echo ""
 	echo "For more information about this image, please go to:"
 	echo ""
-	echo "www.syncsort.com/Docker or index.docker.io/u/syncsort/ironcluster_etl/"
+	echo "www.syncsort.com/dockerETL"
 	echo ""
 }
 
 print_first_time_info()
 {
 	echo ""
-	echo "If you have not yet registered, please go to www.syncsort.com/Docker/register"
+	echo "If you have not yet registered, please go to www.syncsort.com/dockerETL"
 	echo ""
 }
 
 print_onselect_no()
 {
 	echo ""
-        echo "Please see /usr/dmexpress/installationguide.pdf for information"
+    echo "Please see /usr/dmexpress/installationguide.pdf for information"
 	echo "on how to apply your license key to Ironcluster ETL."
 	echo ""
 }       
