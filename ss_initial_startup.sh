@@ -43,38 +43,4 @@ if [ -e $not_first_run_flag ]; then
 else
 	print_first_time_info
 	
-	echo "Would you like to apply your key? (Y/N)"
-	while true; do
-		read -s -n 1 response
-		if [ "$response" == "Y" ] || [ "$response" == "y" ] ; then
-			cd /usr/dmexpress
-			echo ""
-			echo "Press CTRL+C to exit from the key application prompt"
-			echo ""
-			sudo ./applykey
-			rc=$?
-			if [[ $rc == 0 ]]; then
-				touch $not_first_run_flag
-			fi
-			sudo /usr/dmexpress/bin/start_dmxd
-			rc=$?
-			if [[ $rc != 0 ]];then
-				echo "Unable to start dmxd."
-				exit 1
-			else
-				echo "DMExpress Server started..."
-				echo ""
-			fi			
-			exit 0
-		elif [ "$response" == "N" ] || [ "$response" == "n" ] ; then
-	
-			print_onselect_no
-			touch $not_first_run_flag
-			exit 0
-		else
-			echo "Please enter Y or N"
-		fi
-	done
 fi
-
-done
