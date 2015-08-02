@@ -4,23 +4,27 @@ FROM centos:centos6
 RUN yum install -y tar which openssh-server openssh-clients-5.3p1-94.el6.x86_64 sudo
 
 # Copy installation files
-ADD dmexpress.tar.gz	 /usr/
+ADD dmxtar* /tmp/
+RUN cat `ls /tmp/dmxtar* | sort` > /tmp/dmexpress.tar.gz
+RUN (cd /usr ; tar zxf /tmp/dmexpress.tar.gz)
+RUN rm -v /tmp/dmxtar* /tmp/dmexpress.tar.gz
 
 # Copy local pam.d/sshd (Needed for ssh login)
 ADD ss_sshd /etc/pam.d/sshd
 
 # Unpacking required ssh configuration
-ADD ssh_info.tar /etc/ssh/
+RUN echo $'\nBanner /etc/ssh/sshd_banner\n' >> /etc/ssh/sshd_config
+ADD sshd_banner /etc/ssh/
 
 # Set environment
-ENV PATH 	      /usr/dmexpress/bin:$PATH
-ENV LD_LIBRARY_PATH   /usr/dmexpress/lib:$LD_LIBRARY_PATH
+ENV PATH 	      $PATH:/usr/dmexpress/bin
+ENV LD_LIBRARY_PATH   $LD_LIBRARY_PATH:/usr/dmexpress/lib
 
 # Create user
-RUN useradd -d /home/syncsort/ -s /bin/bash -p $(echo syncsort | openssl passwd -1 -stdin) syncsort
+RUN useradd -m -d /home/syncsort/ -s /bin/bash -p $(echo syncsort | openssl passwd -1 -stdin) syncsort
 
 # Make syncsort a sudoer
-ADD ss_sudoers /etc/sudoers
+RUN echo $'syncsort ALL=(ALL) 	ALL\n' > /etc/sudoers.d/syncsort_user
 
 RUN chown -R syncsort /usr/dmexpress
 
@@ -29,8 +33,10 @@ ADD ss_bashrc		/home/syncsort/.bashrc
 ADD ss_initial_startup.sh	/home/syncsort/ss_initial_startup.sh
 
 # Move DMX UCAs to Docker
-ADD UseCaseAccelerators.tar /usr/dmexpress/examples/UseCaseAccelerators
-RUN chmod -R  777 /usr/dmexpress/examples/
+ADD UseCaseAccelerators.tar.gz /usr/dmexpress/examples/
+RUN chown -R syncsort:syncsort /usr/dmexpress/examples/UseCaseAccelerators/
+RUN chmod -R  a+r /usr/dmexpress/examples/
+RUN find /usr/dmexpress/examples/ -type d -exec chmod a+x {} \;
 
 # Expose dmxd port
 EXPOSE 32636
